@@ -12,32 +12,6 @@ const port = process.env.PORT || 5000
 const parserMiddleware = bodyParser({})
 app.use(parserMiddleware)
 
-const authGuardMiddleware = (
-	req: Request,
-	res: Response,
-	next: NextFunction
-) => {
-	if (req.query.token === '123') {
-		next()
-	} else {
-		res.send(401)
-	}
-}
-
-let requestCounter = 0
-
-const requestCounterMiddleware = (
-	req: Request,
-	res: Response,
-	next: NextFunction
-) => {
-	requestCounter++
-	next()
-}
-
-app.use(authGuardMiddleware)
-app.use(requestCounterMiddleware)
-
 app.use('/products', productsRouter)
 app.use('/addresses', addressesRouter)
 
